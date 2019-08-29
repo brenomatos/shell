@@ -130,7 +130,7 @@ main(void)
     if(buf[0] == 'c' && buf[1] == 'd' && buf[2] == ' '){
       buf[strlen(buf)-1] = 0;
       if(chdir(buf+3) < 0)
-        fprintf(stderr, "reporte erro\n");
+        fprintf(stderr, "Mudanca de Pasta Falhou\n");
       continue;
     }
     /* MARK END task1 */
