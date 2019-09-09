@@ -8,8 +8,8 @@
 #include <sys/stat.h>
 #include <sys/wait.h>
 
-/* MARK NAME Seu Nome Aqui */
-/* MARK NAME Nome de Outro Integrante Aqui */
+/* MARK NAME Breno de Sousa Matos */
+/* MARK NAME Rennan Cordeiro Lima */
 /* MARK NAME E Etc */
 
 /****************************************************************
@@ -76,7 +76,11 @@ runcmd(struct cmd *cmd)
     /* MARK START task2
      * TAREFA2: Implemente codigo abaixo para executar
      * comandos simples. */
-    fprintf(stderr, "exec nao implementado\n");
+    if (execvp(ecmd->argv[0], ecmd->argv) < 0)
+    {
+      fprintf(stderr, "exec nao implementado\n");
+    }
+    
     /* MARK END task2 */
     break;
 
@@ -86,7 +90,13 @@ runcmd(struct cmd *cmd)
     /* MARK START task3
      * TAREFA3: Implemente codigo abaixo para executar
      * comando com redirecionamento. */
-    fprintf(stderr, "redir nao implementado\n");
+    // close(rcmd->fd);
+    if ((rcmd->fd = open(rcmd->file,O_WRONLY|O_CREAT|O_TRUNC,rcmd->mode)) == -1)
+    {
+      fprintf(stderr, "redir nao implementado\n");
+    }
+    // close(rcmd->fd);
+    
     /* MARK END task3 */
     runcmd(rcmd->cmd);
     break;
