@@ -102,10 +102,29 @@ runcmd(struct cmd *cmd)
 
   case '|':
     pcmd = (struct pipecmd*)cmd;
-    /* MARK START task4
-     * TAREFA4: Implemente codigo abaixo para executar
-     * comando com pipes. */
-    fprintf(stderr, "pipe nao implementado\n");
+
+    pipe(p);
+    r = fork();
+    if(r == 0) {
+        close(p[1]);     ;
+        dup2(p[0], STDIN_FILENO);
+        close(p[0]);
+        runcmd(pcmd->right);
+
+    } else {
+        r = fork();
+        if(r == 0) {
+            close(p[0]);
+            dup2(p[1], STDOUT_FILENO);
+            close(p[1]);
+            runcmd(pcmd->left);
+        }    
+
+        close(p[0]);
+        close(p[1]); 
+        waitpid(-1, NULL, 0); 
+        waitpid(-1, NULL, 0);  
+    }
     /* MARK END task4 */
     break;
   }    
@@ -372,4 +391,3 @@ parseexec(char **ps, char *es)
 }
 
 // vim: expandtab:ts=2:sw=2:sts=2
-
