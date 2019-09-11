@@ -21,5 +21,10 @@ Rennan Cordeiro Lima <rennancordeiro@dcc.ufmg.br> 50%
 “Fundamentos de Sistemas Operacionais”, 8a. Ed., Silberschatz, Galvin e Gagne, Ed. LTC
 
 4. Estruturas de dados
+Task 1 - Definido pelo uso de chdir
+Task 2 - Para o comando exec, foi utilizada a função execvp()
+Task 3 - Para o comando redir, foi feita a leitura do file descriptor...
+Task 4 - Para o comando pipe
+
 
 
