@@ -13,15 +13,13 @@ Preencha as linhas abaixo com o nome e o e-mail dos integrantes do
 grupo.  Substitua XX pela contribuição de cada membro do grupo no
 desenvolvimento do trabalho.
 
-Nome <email@domain.br> XX%
-Nome <email@domain.br> XX%
-Nome <email@domain.br> XX%
+Breno de Sousa Matos <brenomatos@dcc.ufmg.br> 50%
+Rennan Cordeiro Lima <rennancordeiro@dcc.ufmg.br> 50%
 
 3. Referências bibliográficas
 
-Adicione aqui as referências bibliográficas.
+“Fundamentos de Sistemas Operacionais”, 8a. Ed., Silberschatz, Galvin e Gagne, Ed. LTC
 
 4. Estruturas de dados
 
-Descreva e justifique as estruturas de dados e algoritmos utilizados
-em sua solução.
+

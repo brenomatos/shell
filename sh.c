@@ -36,7 +36,7 @@ struct execcmd {
 };
 
 struct redircmd {
-  int type;          // < ou > 
+  int type;          // < ou >
   struct cmd *cmd;   // o comando a rodar (ex.: um execcmd)
   char *file;        // o arquivo de entrada ou saída
   int mode;          // o modo no qual o arquivo deve ser aberto
@@ -63,7 +63,7 @@ runcmd(struct cmd *cmd)
 
   if(cmd == 0)
     exit(0);
-  
+
   switch(cmd->type){
   default:
     fprintf(stderr, "tipo de comando desconhecido\n");
@@ -80,7 +80,7 @@ runcmd(struct cmd *cmd)
     {
       fprintf(stderr, "exec nao implementado\n");
     }
-    
+
     /* MARK END task2 */
     break;
 
@@ -95,7 +95,7 @@ runcmd(struct cmd *cmd)
     {
       fprintf(stderr, "redir nao implementado\n");
     }
-    
+
     /* MARK END task3 */
     runcmd(rcmd->cmd);
     break;
@@ -118,16 +118,16 @@ runcmd(struct cmd *cmd)
             dup2(p[1], STDOUT_FILENO);
             close(p[1]);
             runcmd(pcmd->left);
-        }    
+        }
 
         close(p[0]);
-        close(p[1]); 
-        waitpid(-1, NULL, 0); 
-        waitpid(-1, NULL, 0);  
+        close(p[1]);
+        waitpid(-1, NULL, 0);
+        waitpid(-1, NULL, 0);
     }
     /* MARK END task4 */
     break;
-  }    
+  }
   exit(0);
 }
 
@@ -155,10 +155,12 @@ main(void)
     /* TAREFA1: O que faz o if abaixo e por que ele é necessário?
      * Insira sua resposta no código e modifique o fprintf abaixo
      * para reportar o erro corretamente. */
+    /*  Muda o diretório atual (working directory)
+    quando o usuário entra em uma nova pasta*/
     if(buf[0] == 'c' && buf[1] == 'd' && buf[2] == ' '){
       buf[strlen(buf)-1] = 0;
       if(chdir(buf+3) < 0)
-        fprintf(stderr, "Mudanca de Pasta Falhou\n");
+        fprintf(stderr, "Pasta Nao Encontrada\n");
       continue;
     }
     /* MARK END task1 */
@@ -174,7 +176,7 @@ int
 fork1(void)
 {
   int pid;
-  
+
   pid = fork();
   if(pid == -1)
     perror("fork");
@@ -236,7 +238,7 @@ gettoken(char **ps, char *es, char **q, char **eq)
 {
   char *s;
   int ret;
-  
+
   s = *ps;
   while(s < es && strchr(whitespace, *s))
     s++;
@@ -261,7 +263,7 @@ gettoken(char **ps, char *es, char **q, char **eq)
   }
   if(eq)
     *eq = s;
-  
+
   while(s < es && strchr(whitespace, *s))
     s++;
   *ps = s;
@@ -272,7 +274,7 @@ int
 peek(char **ps, char *es, char *toks)
 {
   char *s;
-  
+
   s = *ps;
   while(s < es && strchr(whitespace, *s))
     s++;
@@ -286,7 +288,7 @@ struct cmd *parseexec(char**, char*);
 
 /* Copiar os caracteres no buffer de entrada, comeando de s ate es.
  * Colocar terminador zero no final para obter um string valido. */
-char 
+char
 *mkcopy(char *s, char *es)
 {
   int n = es - s;
@@ -365,7 +367,7 @@ parseexec(char **ps, char *es)
   int tok, argc;
   struct execcmd *cmd;
   struct cmd *ret;
-  
+
   ret = execcmd();
   cmd = (struct execcmd*)ret;
 
