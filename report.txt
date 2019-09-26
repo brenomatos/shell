@@ -23,8 +23,7 @@ Rennan Cordeiro Lima <rennancordeiro@dcc.ufmg.br> 50%
 4. Estruturas de dados
 Task 1 - Definido pelo uso de chdir
 Task 2 - Para o comando exec, foi utilizada a função execvp()
-Task 3 - Para o comando redir, foi feita a leitura do file descriptor...
-Task 4 - Para o comando pipe
-
+Task 3 - Para o comando redir, foi fechado o file descriptor anterior, aberto o novo e chamada runcmd() novamente.
+Task 4 - Para o comando pipe, criamos uma estrutura pipe com um descritor em cada ponta. A chamada dup2 duplica o descritor original para a entrada destino. Após um fork(), os descritores são fechados em cada um dos processos a fim de criar o fluxo de dados. Em um processo, fecha-se o descritor de leitura, no outro, o de escrita.
 
 

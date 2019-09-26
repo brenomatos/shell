@@ -78,7 +78,7 @@ runcmd(struct cmd *cmd)
      * comandos simples. */
     if (execvp(ecmd->argv[0], ecmd->argv) < 0)
     {
-      fprintf(stderr, "exec nao implementado\n");
+      fprintf(stderr, "exec error\n");
     }
 
     /* MARK END task2 */
@@ -93,7 +93,7 @@ runcmd(struct cmd *cmd)
     close(rcmd->fd);
     if ((rcmd->fd = open(rcmd->file,rcmd->mode,S_IRUSR|S_IWUSR|S_IRGRP|S_IROTH)) == -1)
     {
-      fprintf(stderr, "redir nao implementado\n");
+      fprintf(stderr, "redir error\n");
     }
 
     /* MARK END task3 */
@@ -104,26 +104,20 @@ runcmd(struct cmd *cmd)
     pcmd = (struct pipecmd*)cmd;
 
     pipe(p);
-    r = fork();
-    if(r == 0) {
-        close(p[1]);     ;
+    if(fork()) {
+        close(p[1]);     
         dup2(p[0], STDIN_FILENO);
         close(p[0]);
         runcmd(pcmd->right);
 
     } else {
-        r = fork();
-        if(r == 0) {
-            close(p[0]);
-            dup2(p[1], STDOUT_FILENO);
-            close(p[1]);
-            runcmd(pcmd->left);
-        }
-
+        close(p[0]);
+        dup2(p[1], STDOUT_FILENO);
+        close(p[1]);
+        runcmd(pcmd->left);
         close(p[0]);
         close(p[1]);
-        waitpid(-1, NULL, 0);
-        waitpid(-1, NULL, 0);
+        wait(&r);
     }
     /* MARK END task4 */
     break;
